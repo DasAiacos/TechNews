@@ -1,0 +1,33 @@
+<section class="gestion-list" aria-labelledby="list-title">
+  <div class="section-heading">
+    <h2 id="list-title">Noticias publicadas <span class="count">({{ visibles().length }})</span></h2>
+    <label class="search gestion-search">
+      <span class="search-icon" aria-hidden="true"></span>
+      <input type="search" placeholder="Filtrar por titular o categoría" aria-label="Filtrar noticias" [ngModel]="filtro()" (ngModelChange)="filtro.set($event)">
+    </label>
+  </div>
+
+  @for (n of visibles(); track n.id) {
+    <article class="gestion-item" [class.is-custom]="n.custom">
+      <img [src]="n.image" [alt]="n.title" loading="lazy">
+      <div class="gestion-item-body">
+        <span class="tag">{{ n.category }}</span>
+        @if (n.custom) { <span class="tag tag-new">Creada por ti</span> }
+        <h3><a [href]="'../pages/noticia.html?noticia=' + n.id">{{ n.title }}</a></h3>
+        <p>{{ n.summary }}</p>
+        <small>Publicado el {{ n.date }} · {{ n.paragraphs.length }} párrafo(s)</small>
+      </div>
+      <div class="gestion-actions">
+        @if (confirmando() === n.id) {
+          <span>¿Eliminar?</span>
+          <button type="button" class="danger" (click)="confirmar(n)">Sí, eliminar</button>
+          <button type="button" class="ghost" (click)="confirmando.set(null)">Cancelar</button>
+        } @else {
+          <button type="button" class="ghost danger-text" (click)="confirmando.set(n.id)" [attr.aria-label]="'Eliminar ' + n.title">🗑 Eliminar</button>
+        }
+      </div>
+    </article>
+  } @empty {
+    <p class="empty-state">No hay noticias que coincidan con el filtro.</p>
+  }
+</section>

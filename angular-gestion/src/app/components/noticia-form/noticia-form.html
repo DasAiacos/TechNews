@@ -1,0 +1,50 @@
+<section class="contact-form-card gestion-form" aria-labelledby="form-title">
+  <h2 id="form-title">Crear nueva noticia</h2>
+
+  <form #f="ngForm" (ngSubmit)="guardar(f)" novalidate>
+    <label>Categoría <b>*</b>
+      <select name="category" [(ngModel)]="modelo.category" #cat="ngModel" required>
+        <option value="">Selecciona una categoría</option>
+        @for (c of categorias; track c) { <option [value]="c">{{ c }}</option> }
+      </select>
+      @if (cat.invalid && cat.touched) { <small class="field-error">Selecciona una categoría.</small> }
+    </label>
+
+    <label>Titular <b>*</b>
+      <input name="title" type="text" [(ngModel)]="modelo.title" #title="ngModel" required minlength="10" maxlength="90" placeholder="Ej.: Nuevo avance en computación cuántica">
+      @if (title.invalid && title.touched) { <small class="field-error">El titular debe tener entre 10 y 90 caracteres.</small> }
+    </label>
+
+    <label>Resumen <b>*</b>
+      <span class="textarea-wrap">
+        <textarea name="summary" class="short" [(ngModel)]="modelo.summary" #summary="ngModel" required minlength="20" [maxlength]="maxResumen" placeholder="Descripción breve que verá el lector en la tarjeta"></textarea>
+        <small>{{ modelo.summary.length }} / {{ maxResumen }}</small>
+      </span>
+      @if (summary.invalid && summary.touched) { <small class="field-error">Escribe un resumen de al menos 20 caracteres.</small> }
+    </label>
+
+    <label>URL de la imagen <span class="optional">(opcional)</span>
+      <input name="image" type="url" [(ngModel)]="modelo.image" #image="ngModel" [pattern]="urlPattern" placeholder="https://...">
+      @if (image.invalid && image.touched) { <small class="field-error">Ingresa una URL válida que empiece por http:// o https://.</small> }
+    </label>
+
+    <label>Contenido <b>*</b>
+      <textarea name="content" [(ngModel)]="modelo.content" #content="ngModel" required minlength="40" placeholder="Cada salto de línea crea un párrafo nuevo"></textarea>
+      @if (content.invalid && content.touched) { <small class="field-error">El contenido debe tener al menos 40 caracteres.</small> }
+    </label>
+
+    <button class="send-button" type="submit">＋ Publicar noticia</button>
+  </form>
+
+  <!-- Vista previa: se actualiza en tiempo real gracias al data binding -->
+  <div class="gestion-preview" aria-live="polite">
+    <span class="preview-label">Vista previa</span>
+    <article class="news-card">
+      <div class="card-body">
+        <span class="tag">{{ modelo.category || 'Categoría' }}</span>
+        <h3>{{ modelo.title || 'El titular de tu noticia aparecerá aquí' }}</h3>
+        <p class="summary">{{ modelo.summary || 'El resumen se mostrará en la tarjeta del Home.' }}</p>
+      </div>
+    </article>
+  </div>
+</section>

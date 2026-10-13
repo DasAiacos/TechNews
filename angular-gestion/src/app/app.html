@@ -1,0 +1,49 @@
+<header class="site-header">
+  <div class="header-inner container">
+    <a class="logo" href="../index.html" aria-label="TechNews - Inicio"><span>Tech</span>News</a>
+    <button class="menu-toggle" [attr.aria-expanded]="menuAbierto()" aria-controls="main-nav" aria-label="Abrir menú" (click)="menuAbierto.set(!menuAbierto())">&#9776;</button>
+    <nav id="main-nav" class="main-nav" [class.open]="menuAbierto()" aria-label="Navegación principal">
+      <a href="../index.html">Inicio</a><a href="../index.html#noticias">Noticias</a><a class="active" href="./">Gestión</a><a href="../pages/contacto.html">Contacto</a><a href="../pages/contacto.html#colabora">Colabora</a>
+    </nav>
+    <span class="gestion-badge">Módulo Angular</span>
+  </div>
+</header>
+
+<main class="gestion-main">
+  <section class="contact-hero gestion-hero container" aria-labelledby="gestion-title">
+    <div>
+      <span>GESTIÓN DE NOTICIAS</span>
+      <h1 id="gestion-title">Publica y administra el contenido</h1>
+      <p>Crea nuevas noticias o elimina las existentes. Los cambios se guardan en tu navegador <br>y se reflejan inmediatamente en el Home y en el detalle de cada noticia.</p>
+    </div>
+  </section>
+
+  <div class="gestion-stats container">
+    <div><strong>{{ service.noticias().length }}</strong><span>Noticias visibles</span></div>
+    <div><strong>{{ service.totalCreadas() }}</strong><span>Creadas por ti</span></div>
+    <div><strong>{{ service.totalEliminadas() }}</strong><span>Eliminadas del catálogo</span></div>
+    <button type="button" class="ghost" (click)="onRestablecer()" [disabled]="!service.totalCreadas() && !service.totalEliminadas()">↺ Restablecer catálogo</button>
+  </div>
+
+  @if (mensaje()) { <p class="gestion-toast" role="status">{{ mensaje() }}</p> }
+
+  <div class="gestion-layout container">
+    <app-noticia-form (crear)="onCrear($event)" />
+    @if (service.cargando()) {
+      <p class="empty-state">Cargando noticias...</p>
+    } @else if (service.error()) {
+      <p class="data-error">{{ service.error() }}</p>
+    } @else {
+      <app-noticia-list [noticias]="service.noticias()" (eliminar)="onEliminar($event)" />
+    }
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner container">
+    <div><a class="logo footer-logo" href="../index.html"><span>Tech</span>News</a><p>Tecnología hoy, un mejor mañana.</p></div>
+    <nav aria-label="Navegación del pie"><a href="../index.html">Inicio</a><a href="../index.html#noticias">Noticias</a><a href="./">Gestión</a><a href="../pages/contacto.html">Contacto</a><a href="../pages/privacidad.html">Política de Privacidad</a></nav>
+    <div class="socials"><a href="#" aria-label="Twitter">&#9829;</a><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="YouTube">&#9654;</a><a href="#" aria-label="Instagram">◎</a></div>
+  </div>
+  <p class="copyright container">© 2026 TechNews. Todos los derechos reservados.</p>
+</footer>

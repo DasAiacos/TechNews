@@ -11,7 +11,9 @@ try {
   localStorage.removeItem('technews-favorites');
 }
 
-function renderStory(news) {
+function renderStory(baseNews) {
+    // Incluye las noticias creadas y excluye las eliminadas desde Gestión (Angular)
+    const news = window.TechNewsStore ? window.TechNewsStore.apply(baseNews) : baseNews;
     story = news.find(item => item.id === params.get('noticia'));
     if (!story) {
       missing.hidden = false;

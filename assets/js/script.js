@@ -19,6 +19,11 @@ function saveFavorites() {
   localStorage.setItem('technews-favorites', JSON.stringify([...favoriteIds]));
 }
 
+// Escapa texto antes de insertarlo con innerHTML
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+}
+
 function render() {
   const rawTerm = search.value.trim();
   const term = rawTerm.toLocaleLowerCase('es');
@@ -33,13 +38,13 @@ function render() {
 
   grid.innerHTML = filtered.map(item => `
     <article class="news-card">
-      <a class="news-card-link" href="pages/noticia.html?noticia=${encodeURIComponent(item.id)}" aria-label="Leer noticia: ${item.title}">
-        <img class="card-image" src="${item.image}" alt="" loading="lazy">
+      <a class="news-card-link" href="pages/noticia.html?noticia=${encodeURIComponent(item.id)}" aria-label="Leer noticia: ${escapeHtml(item.title)}">
+        <img class="card-image" src="${escapeHtml(item.image)}" alt="" loading="lazy">
         <div class="card-body">
-          <span class="tag">${item.category}</span>
-          <h3>${item.title}</h3>
-          <p class="summary">${item.summary}</p>
-          <div class="meta"><span>▣ ${item.date}</span><span>▢ ${item.comments}</span></div>
+          <span class="tag">${escapeHtml(item.category)}</span>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p class="summary">${escapeHtml(item.summary)}</p>
+          <div class="meta"><span>▣ ${escapeHtml(item.date)}</span><span>▢ ${item.comments}</span></div>
         </div>
       </a>
       <button class="favorite-button${favoriteIds.has(item.id) ? ' is-favorite' : ''}" type="button" data-favorite="${item.id}" aria-label="${favoriteIds.has(item.id) ? 'Quitar de' : 'Añadir a'} favoritos" aria-pressed="${favoriteIds.has(item.id)}" title="${favoriteIds.has(item.id) ? 'Quitar de favoritos' : 'Añadir a favoritos'}">${favoriteIds.has(item.id) ? '♥' : '♡'}</button>
@@ -114,7 +119,8 @@ document.querySelector('#newsletterForm').addEventListener('submit', event => {
 });
 
 function useNews(data) {
-  news = data;
+  // Aplica las noticias creadas/eliminadas desde el módulo de Gestión (Angular)
+  news = window.TechNewsStore ? window.TechNewsStore.apply(data) : data;
   favoriteIds = new Set([...favoriteIds].filter(id => news.some(item => item.id === id)));
   saveFavorites();
   render();
