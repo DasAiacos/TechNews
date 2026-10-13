@@ -28,16 +28,28 @@
         <span class="pill">DESTACADA</span>
         <h1 id="hero-title">La inteligencia artificial<br>está redefiniendo el futuro</h1>
         <p>Descubre cómo la IA está transformando industrias, impulsando<br>la innovación y abriendo nuevas oportunidades en todo el mundo.</p>
-        <a class="primary-button" href="#noticias">Leer noticia <span>→</span></a>
+        <a class="primary-button" href="pages/noticia.html?noticia=ia-futuro">Leer noticia <span>→</span></a>
       </div>
       <blockquote><i></i>“La tecnología no solo<br>cambia lo que hacemos,<br>sino cómo imaginamos<br>el futuro.”</blockquote>
     </section>
 
     <div class="content-layout container">
       <section id="noticias" class="news-section" aria-labelledby="news-title">
-        <div class="section-heading"><h2 id="news-title">Últimas noticias</h2><button id="showAll" class="text-button">Ver todas&nbsp; →</button></div>
+        <div class="section-heading"><h2 id="news-title">Últimas noticias</h2><div class="news-actions"><button id="showFavorites" class="text-button" type="button" aria-pressed="false">Favoritos (0)</button><button id="showAll" class="text-button" type="button">Ver todas&nbsp; →</button></div></div>
         <div id="newsGrid" class="news-grid"></div>
-        <p id="emptyState" class="empty-state" hidden>No encontramos noticias con esa búsqueda.</p>
+        <section id="emptyState" class="empty-state" aria-live="polite" hidden>
+          <div class="empty-illustration" aria-hidden="true"><span class="empty-document"></span><span class="empty-search-icon"></span></div>
+          <h3>No encontramos resultados</h3>
+          <p>Lo sentimos, no hay noticias que coincidan con<br><strong id="emptyTerm"></strong>.</p>
+          <button id="clearSearch" class="primary-button" type="button">Intentar con otros términos</button>
+          <div class="search-suggestions"><strong>Sugerencias:</strong><ul><li>Verifica la ortografía</li><li>Prueba con términos más generales</li><li>Explora nuestras categorías de noticias</li></ul></div>
+        </section>
+        <section id="favoriteEmptyState" class="empty-state favorite-empty-state" hidden>
+          <div class="empty-favorite-icon" aria-hidden="true">♡</div>
+          <h3>Aún no tienes noticias favoritas</h3>
+          <p>Guarda una noticia tocando el corazón de cualquiera de sus tarjetas.</p>
+          <button class="primary-button" type="button">Ver todas las noticias</button>
+        </section>
       </section>
 
       <aside class="sidebar" aria-label="Filtros y suscripción">
@@ -68,6 +80,7 @@
     </div>
     <p class="copyright container">© 2025 TechNews. Todos los derechos reservados.</p>
   </footer>
+  <script src="assets/js/news-data.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>

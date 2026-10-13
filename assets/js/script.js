@@ -1,17 +1,136 @@
-const news = [
-  {category:'Hardware',title:'Apple presenta su nueva línea de chips M4',summary:'Más potencia, eficiencia y rendimiento para una nueva generación de dispositivos.',date:'15 may 2025',comments:12,image:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80'},
-  {category:'Inteligencia Artificial',title:'Cómo la IA está transformando la educación',summary:'Herramientas inteligentes que personalizan el aprendizaje y amplían el acceso al conocimiento.',date:'14 may 2025',comments:8,image:'https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80'},
-  {category:'Móviles',title:'Los mejores smartphones del 2025',summary:'Comparativa de los dispositivos más innovadores del año.',date:'12 may 2025',comments:15,image:'https://images.unsplash.com/photo-1592286927505-1def25115558?auto=format&fit=crop&w=800&q=80'},
-  {category:'Realidad Virtual',title:'El metaverso sigue evolucionando',summary:'Nuevas experiencias, más realismo y un futuro cada vez más cercano.',date:'10 may 2025',comments:6,image:'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=800&q=80'},
-  {category:'Tecnología Verde',title:'Innovación tecnológica para un planeta sostenible',summary:'Soluciones que están ayudando a construir un futuro más limpio y responsable.',date:'9 may 2025',comments:4,image:'https://images.unsplash.com/photo-1531053326607-9d349096d887?auto=format&fit=crop&w=800&q=80'},
-  {category:'Software',title:'Las 10 herramientas esenciales para desarrolladores en 2025',summary:'Aumenta tu productividad con estas herramientas imprescindibles.',date:'8 may 2025',comments:10,image:'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80'},
-  {category:'Ciberseguridad',title:'Claves para proteger tu identidad digital',summary:'Buenas prácticas para navegar, comprar y trabajar de forma más segura.',date:'7 may 2025',comments:9,image:'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80'},
-  {category:'Ciencia y Espacio',title:'La nueva era de la exploración espacial',summary:'Misiones y tecnologías que nos acercan a nuevos mundos.',date:'6 may 2025',comments:7,image:'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80'}
-];
-const grid=document.querySelector('#newsGrid'),empty=document.querySelector('#emptyState'),search=document.querySelector('#searchInput');let showAll=false,category='';
-function render(){const term=search.value.trim().toLowerCase();let filtered=news.filter(n=>(!category||n.category===category)&&(!term||`${n.category} ${n.title} ${n.summary}`.toLowerCase().includes(term)));if(!showAll&&!term&&!category)filtered=filtered.slice(0,6);grid.innerHTML=filtered.map(n=>`<article class="news-card"><img class="card-image" src="${n.image}" alt="${n.title}" loading="lazy"><div class="card-body"><span class="tag">${n.category}</span><h3>${n.title}</h3><p class="summary">${n.summary}</p><div class="meta"><span>▣ ${n.date}</span><span>▢ ${n.comments}</span></div></div></article>`).join('');empty.hidden=filtered.length>0}
-search.addEventListener('input',render);document.querySelector('#showAll').addEventListener('click',e=>{showAll=!showAll;e.currentTarget.innerHTML=showAll?'Ver menos&nbsp; ←':'Ver todas&nbsp; →';render()});
-document.querySelectorAll('[data-category]').forEach(btn=>btn.addEventListener('click',()=>{category=category===btn.dataset.category?'':btn.dataset.category;document.querySelectorAll('[data-category]').forEach(b=>b.classList.toggle('active',b.dataset.category===category));showAll=true;render();document.querySelector('#noticias').scrollIntoView()}));
-document.querySelector('.menu-toggle').addEventListener('click',e=>{const nav=document.querySelector('#main-nav');nav.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',nav.classList.contains('open'))});
-document.querySelector('#newsletterForm').addEventListener('submit',e=>{e.preventDefault();document.querySelector('#formMessage').textContent='¡Gracias por suscribirte!';e.currentTarget.reset()});
-render();
+const grid = document.querySelector('#newsGrid');
+const empty = document.querySelector('#emptyState');
+const search = document.querySelector('#searchInput');
+const favoritesButton = document.querySelector('#showFavorites');
+const favoriteMessage = document.querySelector('#favoriteEmptyState');
+let news = window.location.protocol === 'file:' ? (window.techNewsFallback || []) : [];
+let showAll = false;
+let category = '';
+let favoritesOnly = false;
+let favoriteIds = new Set();
+
+try {
+  favoriteIds = new Set(JSON.parse(localStorage.getItem('technews-favorites') || '[]'));
+} catch {
+  localStorage.removeItem('technews-favorites');
+}
+
+function saveFavorites() {
+  localStorage.setItem('technews-favorites', JSON.stringify([...favoriteIds]));
+}
+
+function render() {
+  const rawTerm = search.value.trim();
+  const term = rawTerm.toLocaleLowerCase('es');
+  let filtered = news.filter(item => {
+    const matchesCategory = !category || item.category === category;
+    const matchesSearch = !term || `${item.category} ${item.title} ${item.summary}`.toLocaleLowerCase('es').includes(term);
+    const matchesFavorites = !favoritesOnly || favoriteIds.has(item.id);
+    return matchesCategory && matchesSearch && matchesFavorites;
+  });
+
+  if (!showAll && !term && !category && !favoritesOnly) filtered = filtered.slice(0, 6);
+
+  grid.innerHTML = filtered.map(item => `
+    <article class="news-card">
+      <a class="news-card-link" href="pages/noticia.html?noticia=${encodeURIComponent(item.id)}" aria-label="Leer noticia: ${item.title}">
+        <img class="card-image" src="${item.image}" alt="" loading="lazy">
+        <div class="card-body">
+          <span class="tag">${item.category}</span>
+          <h3>${item.title}</h3>
+          <p class="summary">${item.summary}</p>
+          <div class="meta"><span>▣ ${item.date}</span><span>▢ ${item.comments}</span></div>
+        </div>
+      </a>
+      <button class="favorite-button${favoriteIds.has(item.id) ? ' is-favorite' : ''}" type="button" data-favorite="${item.id}" aria-label="${favoriteIds.has(item.id) ? 'Quitar de' : 'Añadir a'} favoritos" aria-pressed="${favoriteIds.has(item.id)}" title="${favoriteIds.has(item.id) ? 'Quitar de favoritos' : 'Añadir a favoritos'}">${favoriteIds.has(item.id) ? '♥' : '♡'}</button>
+    </article>`).join('');
+
+  const noSearchResults = Boolean(term) && filtered.length === 0;
+  const noFavoriteResults = favoritesOnly && !term && filtered.length === 0;
+  empty.hidden = !noSearchResults;
+  favoriteMessage.hidden = !noFavoriteResults;
+  grid.hidden = noSearchResults || noFavoriteResults;
+  document.querySelector('.section-heading').hidden = noSearchResults;
+  document.body.classList.toggle('search-empty', noSearchResults);
+  document.body.classList.toggle('favorites-empty', noFavoriteResults);
+  favoritesButton.setAttribute('aria-pressed', favoritesOnly);
+  favoritesButton.textContent = favoritesOnly ? 'Ver todas las noticias' : `Favoritos (${favoriteIds.size})`;
+  if (noSearchResults) document.querySelector('#emptyTerm').textContent = `“${rawTerm}”`;
+}
+
+grid.addEventListener('click', event => {
+  const button = event.target.closest('[data-favorite]');
+  if (!button) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const id = button.dataset.favorite;
+  if (favoriteIds.has(id)) favoriteIds.delete(id);
+  else favoriteIds.add(id);
+  saveFavorites();
+  render();
+});
+
+search.addEventListener('input', render);
+document.querySelector('#showAll').addEventListener('click', event => {
+  showAll = !showAll;
+  event.currentTarget.innerHTML = showAll ? 'Ver menos&nbsp; ←' : 'Ver todas&nbsp; →';
+  render();
+});
+favoritesButton.addEventListener('click', () => {
+  favoritesOnly = !favoritesOnly;
+  showAll = true;
+  render();
+});
+document.querySelector('#clearSearch').addEventListener('click', () => {
+  search.value = '';
+  category = '';
+  favoritesOnly = false;
+  document.querySelectorAll('[data-category]').forEach(button => button.classList.remove('active'));
+  showAll = false;
+  render();
+  search.focus();
+});
+favoriteMessage.querySelector('button').addEventListener('click', () => {
+  favoritesOnly = false;
+  render();
+});
+document.querySelectorAll('[data-category]').forEach(button => button.addEventListener('click', () => {
+  category = category === button.dataset.category ? '' : button.dataset.category;
+  document.querySelectorAll('[data-category]').forEach(option => option.classList.toggle('active', option.dataset.category === category));
+  favoritesOnly = false;
+  showAll = true;
+  render();
+  document.querySelector('#noticias').scrollIntoView();
+}));
+document.querySelector('.menu-toggle').addEventListener('click', event => {
+  const nav = document.querySelector('#main-nav');
+  nav.classList.toggle('open');
+  event.currentTarget.setAttribute('aria-expanded', nav.classList.contains('open'));
+});
+document.querySelector('#newsletterForm').addEventListener('submit', event => {
+  event.preventDefault();
+  document.querySelector('#formMessage').textContent = '¡Gracias por suscribirte!';
+  event.currentTarget.reset();
+});
+
+function useNews(data) {
+  news = data;
+  favoriteIds = new Set([...favoriteIds].filter(id => news.some(item => item.id === id)));
+  saveFavorites();
+  render();
+}
+
+if (window.location.protocol === 'file:') {
+  useNews(news);
+} else {
+  fetch('assets/data/noticias.json')
+    .then(response => {
+      if (!response.ok) throw new Error('No se pudo cargar el archivo de noticias.');
+      return response.json();
+    })
+    .then(useNews)
+    .catch(error => {
+      console.error(error);
+      grid.innerHTML = '<p class="data-error">No pudimos cargar las noticias. Verifica tu conexión o revisa el archivo JSON.</p>';
+    });
+}

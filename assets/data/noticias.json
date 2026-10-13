@@ -1,0 +1,64 @@
+[
+  {
+    "id": "ia-futuro",
+    "category": "Inteligencia Artificial",
+    "title": "La inteligencia artificial está redefiniendo el futuro",
+    "summary": "Descubre cómo la IA está transformando industrias, impulsando la innovación y abriendo nuevas oportunidades en todo el mundo.",
+    "date": "16 may 2025",
+    "comments": 24,
+    "image": "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1400&q=90",
+    "paragraphs": [
+      "La inteligencia artificial dejó de ser una promesa lejana. Hoy forma parte de las herramientas que usamos para analizar información, automatizar tareas y crear nuevas experiencias digitales. Su avance está cambiando la manera en que trabajan empresas, instituciones educativas y equipos de investigación.",
+      "El impacto más visible está en la capacidad de procesar grandes cantidades de datos y ayudar a las personas a tomar decisiones mejor informadas. En salud, educación, industria y servicios, los sistemas inteligentes ya permiten adaptar procesos a necesidades concretas.",
+      "El reto está en desarrollar estas tecnologías con responsabilidad: proteger los datos, revisar los resultados y mantener a las personas en el centro de cada decisión. La innovación será más valiosa cuando amplíe oportunidades y se construya con transparencia."
+    ]
+  },
+  {
+    "id": "chips-m4", "category": "Hardware", "title": "Apple presenta su nueva línea de chips M4",
+    "summary": "Más potencia, eficiencia y rendimiento para una nueva generación de dispositivos.", "date": "15 may 2025", "comments": 12,
+    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["La nueva generación de chips M4 apuesta por mejorar el rendimiento sin aumentar el consumo de energía. El diseño integra CPU, GPU y motores especializados para ejecutar tareas exigentes desde un solo componente.", "Para quienes crean contenido, trabajan con proyectos complejos o usan herramientas de inteligencia artificial, estas mejoras pueden traducirse en procesos más ágiles y una mayor autonomía."]
+  },
+  {
+    "id": "ia-educacion", "category": "Inteligencia Artificial", "title": "Cómo la IA está transformando la educación",
+    "summary": "Herramientas inteligentes que personalizan el aprendizaje y amplían el acceso al conocimiento.", "date": "14 may 2025", "comments": 8,
+    "image": "https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["Las plataformas educativas están incorporando asistentes de inteligencia artificial para adaptar ejercicios, explicar conceptos de distintas formas y ofrecer retroalimentación más rápida.", "El acceso equitativo, la privacidad de los datos y la formación digital son aspectos esenciales para que la IA complemente la enseñanza."]
+  },
+  {
+    "id": "smartphones-2025", "category": "Móviles", "title": "Los mejores smartphones del 2025",
+    "summary": "Comparativa de los dispositivos más innovadores del año.", "date": "12 may 2025", "comments": 15,
+    "image": "https://images.unsplash.com/photo-1592286927505-1def25115558?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["Este año los fabricantes concentran sus novedades en cámaras más versátiles, pantallas eficientes y funciones inteligentes integradas al sistema.", "Antes de elegir un teléfono conviene comparar autonomía, almacenamiento, calidad de cámara y compatibilidad con los accesorios que ya tienes."]
+  },
+  {
+    "id": "metaverso", "category": "Realidad Virtual", "title": "El metaverso sigue evolucionando",
+    "summary": "Nuevas experiencias, más realismo y un futuro cada vez más cercano.", "date": "10 may 2025", "comments": 6,
+    "image": "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["Los dispositivos de realidad virtual continúan mejorando su comodidad, resolución y seguimiento de movimiento. Estas mejoras permiten experiencias más inmersivas para juegos, capacitación y colaboración a distancia.", "El crecimiento de estos espacios dependerá de que sean útiles más allá del entretenimiento y protejan la privacidad de sus usuarios."]
+  },
+  {
+    "id": "tecnologia-sostenible", "category": "Tecnología Verde", "title": "Innovación tecnológica para un planeta sostenible",
+    "summary": "Soluciones que están ayudando a construir un futuro más limpio y responsable.", "date": "9 may 2025", "comments": 4,
+    "image": "https://images.unsplash.com/photo-1531053326607-9d349096d887?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["Sensores, redes eléctricas inteligentes y sistemas de análisis permiten administrar mejor la energía y los recursos.", "La innovación sostenible también considera la fabricación, reparación y vida útil de los dispositivos tecnológicos."]
+  },
+  {
+    "id": "herramientas-desarrollo", "category": "Software", "title": "Las 10 herramientas esenciales para desarrolladores en 2025",
+    "summary": "Aumenta tu productividad con estas herramientas imprescindibles.", "date": "8 may 2025", "comments": 10,
+    "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["Editores de código, control de versiones, terminales y plataformas de integración ayudan a automatizar tareas y colaborar con el equipo.", "Conviene elegir herramientas compatibles entre sí y documentar cómo se usan para mantener un flujo de trabajo claro."]
+  },
+  {
+    "id": "identidad-digital", "category": "Ciberseguridad", "title": "Claves para proteger tu identidad digital",
+    "summary": "Buenas prácticas para navegar, comprar y trabajar de forma más segura.", "date": "7 may 2025", "comments": 9,
+    "image": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["Usar contraseñas únicas y activar la verificación en dos pasos son medidas sencillas para proteger las cuentas personales.", "Mantener los dispositivos actualizados y revisar enlaces inesperados también reduce el riesgo de perder el acceso a la información."]
+  },
+  {
+    "id": "exploracion-espacial", "category": "Ciencia y Espacio", "title": "La nueva era de la exploración espacial",
+    "summary": "Misiones y tecnologías que nos acercan a nuevos mundos.", "date": "6 may 2025", "comments": 7,
+    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80",
+    "paragraphs": ["Las misiones espaciales combinan satélites pequeños, vehículos reutilizables y nuevos instrumentos para observar la Tierra y explorar otros cuerpos celestes.", "Los datos recopilados desde el espacio también ayudan a estudiar el clima y planificar respuestas ante desastres naturales."]
+  }
+]

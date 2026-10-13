@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lee las últimas noticias de tecnología en TechNews." />
+  <title>Noticia | TechNews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="logo" href="../index.html" aria-label="TechNews - Inicio"><span>Tech</span>News</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">&#9776;</button>
+      <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+        <a href="../index.html">Inicio</a><a class="active" href="../index.html#noticias">Noticias</a><a href="contacto.html">Contacto</a><a href="contacto.html#colabora">Colabora</a>
+      </nav>
+      <label class="search"><span class="search-icon" aria-hidden="true"></span><input type="search" placeholder="Buscar noticias, temas..." aria-label="Buscar noticias" /></label>
+    </div>
+  </header>
+
+  <main class="article-main container" id="articleContent" hidden>
+    <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="../index.html">Inicio</a><span aria-hidden="true">›</span><a href="../index.html#noticias">Noticias</a><span aria-hidden="true">›</span><span id="articleBreadcrumb" aria-current="page"></span></nav>
+    <article class="article-page">
+      <a class="article-back" href="../index.html#noticias">← Volver a las noticias</a>
+      <span id="articleCategory" class="tag"></span>
+      <h1 id="articleTitle"></h1>
+      <p id="articleSummary" class="article-summary"></p>
+      <div class="article-meta"><span id="articleDate"></span><span id="articleComments"></span></div>
+      <button id="articleFavorite" class="article-favorite" type="button" aria-pressed="false">♡ Guardar en favoritos</button>
+      <img id="articleImage" class="article-image" alt="" />
+      <div id="articleBody" class="article-body"></div>
+      <section class="article-comments"><h2>Comentarios</h2><p id="commentsText"></p><a href="../index.html#noticias">Descubre más noticias de tecnología</a></section>
+    </article>
+  </main>
+  <main class="article-main container article-missing" id="articleMissing" hidden><h1>No encontramos esta noticia</h1><p>Puede que el enlace haya cambiado o que la noticia ya no esté disponible.</p><a class="primary-button" href="../index.html#noticias">Volver a las noticias</a></main>
+
+  <footer>
+    <div class="footer-inner container">
+      <div><a class="logo footer-logo" href="../index.html"><span>Tech</span>News</a><p>Tecnología hoy, un mejor mañana.</p></div>
+      <nav aria-label="Navegación del pie"><a href="../index.html">Inicio</a><a href="../index.html#noticias">Noticias</a><a href="contacto.html">Contacto</a><a href="privacidad.html">Política de Privacidad</a></nav>
+      <div class="socials"><a href="#" aria-label="Twitter">♥</a><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Instagram">◎</a></div>
+    </div>
+    <p class="copyright container">© 2025 TechNews. Todos los derechos reservados.</p>
+  </footer>
+  <script src="../assets/js/news-data.js"></script>
+  <script src="../assets/js/noticia.js"></script>
+</body>
+</html>
