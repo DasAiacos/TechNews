@@ -173,3 +173,6 @@ footer{background:var(--navy);color:#fff;padding:20px 0 13px}.footer-inner{min-h
 .article-missing h1{margin-bottom:8px}
 .article-missing p{color:var(--muted);margin:0 0 20px}
 @media(max-width:650px){.article-main{padding-bottom:24px}.article-main .breadcrumb{font-size:9px;margin-bottom:14px}.article-page{padding:22px 17px 28px}.article-page h1{font-size:27px}.article-summary{font-size:15px}.article-image{max-height:260px}.article-body p{font-size:14px}}
+
+/* Garantiza que el atributo hidden oculte cualquier bloque (p. ej. "No encontramos esta noticia") */
+[hidden]{display:none!important}
