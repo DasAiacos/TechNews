@@ -31,4 +31,4 @@ npx ng build   # genera la versión de producción en ../gestion
 El sitio es estático, por lo que se publica con **GitHub Pages** desde la rama `main` (carpeta raíz):
 Settings → Pages → Build and deployment → *Deploy from a branch* → `main` / `(root)`.
 
-URL: https://eboadam.github.io/TechNews/
+URL: https://dasaiacos.github.io/TechNews/
